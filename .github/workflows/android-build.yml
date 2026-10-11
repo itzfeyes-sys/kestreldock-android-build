@@ -34,20 +34,20 @@ jobs:
       - name: Publish APK to repository
         run: |
           mkdir -p downloads
-          cp app/build/outputs/apk/debug/app-debug.apk downloads/kestreldock.apk
+          cp app/build/outputs/apk/debug/app-debug.apk downloads/kestreldock-v2.apk
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add downloads/kestreldock.apk
+          git add downloads/kestreldock-v2.apk
           if git diff --cached --quiet; then
             echo "APK is already up to date."
           else
-            git commit -m "Publish APK [skip ci]"
+            git commit -m "Publish KestrelDock v2 APK [skip ci]"
             git push
           fi
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kestreldock-android-debug
+          name: kestreldock-android-v2
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
