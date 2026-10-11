@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
-import androidx.browser.trusted.TrustedWebActivityIntentBuilder;
+
+import androidx.browser.customtabs.CustomTabsIntent;
 
 public final class MainActivity extends Activity {
     private static final String APP_URL = "https://kestreldock.onrender.com/";
@@ -13,11 +14,13 @@ public final class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            new TrustedWebActivityIntentBuilder(Uri.parse(APP_URL))
+            new CustomTabsIntent.Builder()
+                    .setShowTitle(true)
                     .build()
-                    .launch(this);
+                    .launchUrl(this, Uri.parse(APP_URL));
         } catch (RuntimeException error) {
-            Toast.makeText(this, "Unable to open KestrelDock", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Unable to open KestrelDock. Please check your browser.", Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 }
